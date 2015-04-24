@@ -1,0 +1,33 @@
+CXX=g++
+INCDIR=include
+SRCDIR=src
+OBJDIR=obj
+BINDIR=bin
+LIBDIR=lib
+CXXFLAGS= -g -c -Wall -I$(INCDIR) 
+LDFLAGS=
+LIBS=-L $(LIBDIR) -lcommfrac
+SOURCE_FILES=main.cpp 
+SOURCES=$(patsubst %.cpp,$(SRCDIR)/%.cpp,$(SOURCE_FILES))
+OBJECT_FILES=$(patsubst %.cpp,%.o,$(SOURCE_FILES))
+OBJECTS=$(patsubst %.o,$(OBJDIR)/%.o,$(OBJECT_FILES))
+
+TESTNAME=test
+TEST=$(BINDIR)/$(TESTNAME)
+
+all: $(SOURCES) $(TEST)
+    
+$(TEST): $(OBJDIR) $(OBJECTS) $(BINDIR) $(SOURCES)
+	$(CXX) $(LDFLAGS) $(OBJECTS) $(LIBS) -o $@
+
+$(OBJDIR)/%.o: $(SRCDIR)/%.cpp
+	$(CXX) $(CXXFLAGS) $< -o $@
+
+$(OBJDIR):
+	mkdir -p $(OBJDIR)
+
+$(BINDIR):
+	mkdir -p $(BINDIR)
+
+clean:
+	rm -f $(OBJECTS)

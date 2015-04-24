@@ -1,30 +1,10 @@
-CXX=g++
-SRCDIR=src
-OBJDIR=obj
-BINDIR=bin
-CXXFLAGS= -g -c -Wall -I$(SRCDIR) 
-LDFLAGS=
-LIBS=-lpthread
-SOURCE_FILES=main.cpp commfrac.cpp
-SOURCES=$(patsubst %.cpp,$(SRCDIR)/%.cpp,$(SOURCE_FILES))
-OBJECT_FILES=$(patsubst %.cpp,%.o,$(SOURCE_FILES))
-OBJECTS=$(patsubst %.o,$(OBJDIR)/%.o,$(OBJECT_FILES))
+MAKE_LIB=Makefile.lib
+MAKE_TEST=Makefile.test
 
-EXECUTABLE=$(BINDIR)/test
-
-all: $(SOURCES) $(EXECUTABLE)
+all:
+	make -f $(MAKE_LIB)
+	make -f $(MAKE_TEST)
     
-$(EXECUTABLE): $(OBJDIR) $(OBJECTS) $(BINDIR) $(SOURCES)
-	$(CXX) $(LDFLAGS) $(OBJECTS) $(LIBS) -o $@
-
-$(OBJDIR)/%.o: $(SRCDIR)/%.cpp
-	$(CXX) $(CXXFLAGS) $< -o $@
-
-$(OBJDIR):
-	mkdir -p $(OBJDIR)
-
-$(BINDIR):
-	mkdir -p $(BINDIR)
-
 clean:
-	rm -f $(OBJECTS)
+	make -f $(MAKE_LIB) clean
+	make -f $(MAKE_TEST) clean
