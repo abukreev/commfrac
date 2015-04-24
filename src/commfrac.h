@@ -12,11 +12,12 @@ class CommFrac {
 
 public:
     CommFrac();
-    explicit CommFrac(int value);
+    CommFrac(int value);
     CommFrac(int nom, int denom) throw (std::invalid_argument);
     CommFrac(const CommFrac& other);
     const CommFrac& operator =(const CommFrac& other);
-    operator int ();
+    operator int () const;
+    const CommFrac& operator- ();
     friend CommFrac operator+ (const CommFrac& left, const CommFrac& right);
     friend CommFrac operator- (const CommFrac& left, const CommFrac& right);
     friend CommFrac operator* (const CommFrac& left, const CommFrac& right);

@@ -51,9 +51,15 @@ const CommFrac& CommFrac::operator =(const CommFrac& other) {
     return *this;
 }
 
-CommFrac::operator int () {
+CommFrac::operator int () const {
 
     return (int) (d_nom / d_denom);
+}
+
+const CommFrac& CommFrac::operator- () {
+
+    d_nom = -d_nom;
+    return *this;
 }
 
 void CommFrac::simplify() {
